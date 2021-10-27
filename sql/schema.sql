@@ -1,0 +1,1 @@
+CREATE SCHEMA `shopping_with_hibernate` DEFAULT CHARACTER SET utf8;

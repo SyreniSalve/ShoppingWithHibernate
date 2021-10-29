@@ -10,11 +10,9 @@ import java.util.Optional;
 public class OrderRepository implements Repository<Order>{
 
     private final EntityManager entityManager;
-    private ProductRepository productRepository;
 
-    public OrderRepository(EntityManager entityManager, ProductRepository productRepository){
+    public OrderRepository(EntityManager entityManager){
         this.entityManager = entityManager;
-        this.productRepository = productRepository;
     }
 
     @Override

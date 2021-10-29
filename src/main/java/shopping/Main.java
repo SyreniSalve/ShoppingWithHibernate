@@ -4,31 +4,29 @@ package shopping;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import shopping.db.entity.Order;
+import shopping.db.entity.OrderItem;
 import shopping.db.entity.Product;
 import shopping.db.repository.OrderRepository;
 import shopping.db.repository.ProductRepository;
-import shopping.exception.ShoppingException;
 
 import javax.persistence.EntityManager;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
 
 public class Main implements AutoCloseable{
 
     private final EntityManager entityManager;
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
     private final OrderRepository orderRepository;
 
     public Main(){
         SessionFactory sessionFactory = new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(Product.class)
                 .addAnnotatedClass(Order.class)
+                .addAnnotatedClass(Product.class)
+                .addAnnotatedClass(OrderItem.class)
                 .buildSessionFactory();
 
         entityManager = sessionFactory.createEntityManager();
-        orderRepository = new OrderRepository(entityManager, productRepository);
+        orderRepository = new OrderRepository(entityManager);
         productRepository = new ProductRepository(entityManager);
     }
 
@@ -38,7 +36,7 @@ public class Main implements AutoCloseable{
         newEntity.setPrice(9.99);
         productRepository.save(newEntity);
         System.out.println("________________________________");
-        Product entity = productRepository.getById(8);
+        Product entity = productRepository.list().get(0);
         entity.setName("even newer name");
         productRepository.save(entity);
         System.out.println("________________________________");
@@ -53,10 +51,13 @@ public class Main implements AutoCloseable{
         System.out.println("======================================");
         System.out.println("======================================");
         Order entity = new Order();
-//        productRepository.list().stream()
-//                .limit(3)
-//                .forEach(product -> entity.addItems(product,5));
-//        orderRepository.save(entity);
+        productRepository.list().stream()
+                .limit(3)
+                .forEach(product -> entity.addItems(product,5));
+        productRepository.list().stream()
+                .limit(3)
+                .forEach(product -> entity.addItems(product,2));
+        orderRepository.save(entity);
         orderRepository.list().forEach(System.out::println);
         orderRepository.delete(100);
     }
@@ -67,16 +68,6 @@ public class Main implements AutoCloseable{
             m.runOrders();
         }
     }
-
-//    private static Properties loadDatabaseProperties(){
-//        try (InputStream is = ClassLoader.getSystemResourceAsStream("database.properties")){
-//            Properties properties = new Properties();
-//            properties.load(is);
-//            return properties;
-//        }catch (IOException e){
-//            throw new ShoppingException(e);
-//        }
-//    }
 
     @Override
     public void close(){

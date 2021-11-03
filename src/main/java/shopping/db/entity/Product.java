@@ -3,6 +3,8 @@ package shopping.db.entity;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -18,6 +20,9 @@ public class Product implements DbEntity{
 
     @Column(nullable = false)
     private double price;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
+    private List<Review> reviews = new ArrayList<>();
 
     private Instant updated = Instant.now();
 
@@ -47,6 +52,26 @@ public class Product implements DbEntity{
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void addReview(Review review){
+        reviews.add(review);
+    }
+
+    public Instant getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Instant updated) {
+        this.updated = updated;
     }
 
     public Instant getUpdate() {

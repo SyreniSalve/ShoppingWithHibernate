@@ -1,6 +1,7 @@
 package shopping.db.repository;
 
 import shopping.db.entity.Product;
+import shopping.db.entity.Review;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -41,5 +42,15 @@ public class ProductRepository implements Repository<Product>{
            entityManager.remove(product);
            transaction.commit();
        });
+    }
+
+    public Double getProductRating(int id) {
+        return entityManager.createQuery("" +
+                        "SELECT AVG(r.rating) " +
+                        "FROM Review r " +
+                        "JOIN r.product " +
+                        "WHERE r.product.id = ?1", Double.class)
+                .setParameter(1, id)
+                .getSingleResult();
     }
 }

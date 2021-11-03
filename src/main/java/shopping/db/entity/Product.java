@@ -63,6 +63,7 @@ public class Product implements DbEntity{
     }
 
     public void addReview(Review review){
+        review.setProduct(this);
         reviews.add(review);
     }
 
@@ -96,7 +97,8 @@ public class Product implements DbEntity{
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", update=" + updated +
+                ", reviews=" + reviews +
+                ", updated=" + updated +
                 ", created=" + created +
                 '}';
     }

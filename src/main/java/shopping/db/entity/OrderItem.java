@@ -10,7 +10,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @OneToOne(optional = false)
+    @ManyToOne (optional = false)
     private Order order;
 
     @OneToOne(optional = false)
@@ -19,6 +19,9 @@ public class OrderItem {
     @Column(nullable = false)
     private Integer quantity;
 
+    public OrderItem(){
+
+    }
 
     public OrderItem(Order order, Product product, Integer quantity) {
         this.order = order;

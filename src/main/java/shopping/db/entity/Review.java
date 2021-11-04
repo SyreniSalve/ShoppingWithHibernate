@@ -1,10 +1,12 @@
 package shopping.db.entity;
 
+import shopping.SimpleEntity;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "reviews")
-public class Review {
+public class Review extends SimpleEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +23,7 @@ public class Review {
     @ManyToOne(optional = false)
     private OrderItem orderItem;
 
+    @Override
     public Integer getId() {
         return id;
     }

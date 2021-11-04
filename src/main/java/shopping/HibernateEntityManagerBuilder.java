@@ -5,10 +5,7 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import shopping.db.entity.Order;
-import shopping.db.entity.OrderItem;
-import shopping.db.entity.Product;
-import shopping.db.entity.Review;
+import shopping.db.entity.*;
 
 import javax.persistence.EntityManager;
 
@@ -24,6 +21,7 @@ public class HibernateEntityManagerBuilder {
         metadataSources.addAnnotatedClass(Review.class);
         metadataSources.addAnnotatedClass(Product.class);
         metadataSources.addAnnotatedClass(OrderItem.class);
+        metadataSources.addAnnotatedClass(Address.class);
 
         Metadata metadata = metadataSources.buildMetadata();
         SessionFactory sessionFactory = metadata.buildSessionFactory();

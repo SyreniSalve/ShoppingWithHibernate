@@ -1,6 +1,8 @@
 package shopping.db.entity;
 
 
+import shopping.SimpleEntity;
+
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -9,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "products")
-public class Product implements DbEntity{
+public class Product extends SimpleEntity<Integer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +27,6 @@ public class Product implements DbEntity{
     private List<Review> reviews = new ArrayList<>();
 
     private Instant updated = Instant.now();
-
-    @Column(nullable = false)
-    private Instant created = Instant.now();
 
     @Override
     public Integer getId() {
@@ -83,14 +82,6 @@ public class Product implements DbEntity{
         this.updated = update;
     }
 
-    public Instant getCreated() {
-        return created;
-    }
-
-    public void setCreated(Instant created) {
-        this.created = created;
-    }
-
     @Override
     public String toString() {
         return "Product{" +
@@ -99,7 +90,6 @@ public class Product implements DbEntity{
                 ", price=" + price +
                 ", reviews=" + reviews +
                 ", updated=" + updated +
-                ", created=" + created +
                 '}';
     }
 }

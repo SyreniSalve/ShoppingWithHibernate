@@ -1,6 +1,6 @@
 package shopping.db.entity;
 
-public interface DbEntity {
+public interface DbEntity<T> {
 
-    Integer getId();
+    T getId();
 }

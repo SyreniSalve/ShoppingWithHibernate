@@ -48,32 +48,32 @@ public class Main implements AutoCloseable{
         newEntity.setPrice(9.99);
         productRepository.save(newEntity);
         System.out.println("________________________________");
-        Product entity = productRepository.list().get(0);
+        Product entity = productRepository.findAll().get(0);
         entity.setName("even newer name");
         productRepository.save(entity);
         System.out.println("________________________________");
         productRepository.delete(28);
-        productRepository.list().forEach(System.out::println);
+        productRepository.findAll().forEach(System.out::println);
         System.out.println("________________________________");
-        System.out.println(productRepository.getById(8));
-        System.out.println(productRepository.findById(100));
+        System.out.println(productRepository.get(8));
+        System.out.println(productRepository.find(100));
     }
 
     public void runOrders(){
         System.out.println("======================================");
         System.out.println("======================================");
         Order entity = new Order();
-        productRepository.list().stream()
+        productRepository.findAll().stream()
                 .limit(3)
                 .forEach(product -> entity.addItems(product,5));
-        productRepository.list().stream()
+        productRepository.findAll().stream()
                 .limit(3)
                 .forEach(product -> entity.addItems(product,2));
         orderRepository.save(entity);
-        orderRepository.list().forEach(System.out::println);
+        orderRepository.findAll().forEach(System.out::println);
         orderRepository.delete(100);
 
-        Order order = orderRepository.list().get(0);
+        Order order = orderRepository.findAll().get(0);
         OrderItem orderItem = order.getItems().get(0);
         Product product = orderItem.getProduct();
 
@@ -83,7 +83,7 @@ public class Main implements AutoCloseable{
         product.addReview(newReview(orderItem, 1, "meh"));
         productRepository.save(product);
         System.out.println("=====================================");
-        productRepository.list().forEach(System.out::println);
+        productRepository.findAll().forEach(System.out::println);
         System.out.println("=====================================");
         System.out.println("Rating: " + productRepository.getProductRating(product.getId()));
     }

@@ -25,21 +25,8 @@ public class Main implements AutoCloseable{
     private final OrderRepository orderRepository;
 
     public Main(){
-        StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                .configure("hibernate.cfg.xml")
-                .build();
 
-        MetadataSources metadataSources = new MetadataSources(serviceRegistry);
-        metadataSources.addAnnotatedClass(Order.class);
-        metadataSources.addAnnotatedClass(Review.class);
-        metadataSources.addAnnotatedClass(Product.class);
-        metadataSources.addAnnotatedClass(OrderItem.class);
-
-        Metadata metadata = metadataSources.buildMetadata();
-        SessionFactory sessionFactory = metadata.buildSessionFactory();
-
-
-        entityManager = sessionFactory.createEntityManager();
+        entityManager = HibernateEntityManagerBuilder.build();
         orderRepository = new OrderRepository(entityManager);
         productRepository = new ProductRepository(entityManager);
     }
@@ -48,8 +35,6 @@ public class Main implements AutoCloseable{
         new ProductEntityTest(productRepository).run();
         new OrderEntityTest(orderRepository, productRepository).run();
     }
-
-
 
     public static void main(String[] args) {
         try(Main m = new Main()){

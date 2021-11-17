@@ -1,28 +1,19 @@
-package shopping.test;
+package shopping.test.entity;
 
 import shopping.db.entity.*;
 import shopping.db.repository.OrderRepository;
-import shopping.db.repository.ProductRepository;
+import shopping.test.EntityTestProvider;
 
-public class OrderEntityTest extends SimpleEntityTest<Integer, Order>{
+public class OrderEntityTest extends SimpleEntityTest<Integer, Order> {
 
-    private final ProductRepository productRepository;
 
-    public OrderEntityTest(OrderRepository repository, ProductRepository productRepository) {
+    public OrderEntityTest(OrderRepository repository) {
         super(repository);
-        this.productRepository = productRepository;
     }
 
     @Override
     public void runTest() {
-        Order entity = new Order();
-        productRepository.findAll().stream()
-                .limit(3)
-                .forEach(product -> entity.addItems(product,5));
-        productRepository.findAll().stream()
-                .limit(3)
-                .forEach(product -> entity.addItems(product,2));
-        repository.save(entity);
+        newEntity();
         repository.findAll().forEach(System.out::println);
         repository.delete(100);
 
@@ -34,13 +25,32 @@ public class OrderEntityTest extends SimpleEntityTest<Integer, Order>{
         product.addReview(newReview(orderItem, 4, "meh"));
         product.addReview(newReview(orderItem, 10, "meh"));
         product.addReview(newReview(orderItem, 1, "meh"));
-        productRepository.save(product);
+        EntityTest<Product> productEntityTest = EntityTestProvider.INSTANCE.getEntityTest(Product.class);
+        productEntityTest.saveEntity(product);
     }
+
     private Review newReview(OrderItem orderItem, int rating, String comment){
         Review review = new Review();
         review.setOrderItem(orderItem);
         review.setRating(rating);
         review.setReview(comment);
         return review;
+    }
+
+    private Product getNewProduct(){
+        return EntityTestProvider.INSTANCE.getEntityTest(Product.class).newEntity();
+    }
+
+    @Override
+    public Order newEntity() {
+        Order order = new Order();
+        order.addItems(getNewProduct(), 5);
+        EntityTest<User> userEntityTest = EntityTestProvider.INSTANCE.getEntityTest(User.class);
+        User user = userEntityTest.newEntity();
+        userEntityTest.saveEntity(user);
+
+        order.setUser(user);
+        repository.save(order);
+        return order;
     }
 }

@@ -1,9 +1,9 @@
-package shopping.test;
+package shopping.test.entity;
 
 import shopping.db.entity.Product;
 import shopping.db.repository.ProductRepository;
 
-public class ProductEntityTest extends SimpleEntityTest<Integer, Product>{
+public class ProductEntityTest extends SimpleEntityTest<Integer, Product> {
 
     private final ProductRepository repository;
 
@@ -14,10 +14,7 @@ public class ProductEntityTest extends SimpleEntityTest<Integer, Product>{
 
     @Override
     public void runTest() {
-        Product newEntity = new Product();
-        newEntity.setName("bla bla");
-        newEntity.setPrice(9.99);
-        repository.save(newEntity);
+        newEntity();
         System.out.println("________________________________");
         Product entity = repository.findAll().get(0);
         entity.setName("even newer name");
@@ -29,5 +26,14 @@ public class ProductEntityTest extends SimpleEntityTest<Integer, Product>{
         System.out.println(repository.find(100));System.out.println("=====================================");
         Product product = repository.findAll().get(0);
         System.out.println("Rating: " + repository.getProductRating(product.getId()));
+    }
+
+    @Override
+    public Product newEntity() {
+        Product product = new Product();
+        product.setName("bla bla");
+        product.setPrice(9.99);
+        repository.save(product);
+        return product;
     }
 }

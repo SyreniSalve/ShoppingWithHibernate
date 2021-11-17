@@ -3,13 +3,19 @@ package shopping.db.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User extends SimpleEntity<UserId> {
+public class User extends SimpleEntity<UUID> {
 
-    @EmbeddedId
-    private UserId id;
+    @Id
+    @GeneratedValue
+    private UUID id;
+
+    private String firstName;
+
+    private String lastName;
 
     @Column
     private String email;
@@ -22,13 +28,32 @@ public class User extends SimpleEntity<UserId> {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    private List<Order> orders = new ArrayList<>();
+
     @Override
-    public UserId getId() {
-        return null;
+    public UUID getId() {
+        return id;
     }
 
-    public void setId(UserId id){
+    public void setId(UUID id) {
         this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -64,17 +89,29 @@ public class User extends SimpleEntity<UserId> {
     }
 
     public void addAddress(Address address) {
+        address.setUser(this);
         addresses.add(address);
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", addresses=" + addresses +
+                ", orders=" + orders +
                 '}';
     }
 }

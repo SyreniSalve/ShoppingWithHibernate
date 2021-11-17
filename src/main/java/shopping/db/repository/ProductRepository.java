@@ -1,25 +1,22 @@
 package shopping.db.repository;
 
 import shopping.db.entity.Product;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import java.util.List;
-import java.util.Optional;
+import static shopping.test.DatabaseSessionManager.*;
 
 public class ProductRepository extends SimpleCRUDRepository<Integer, Product> {
 
-    public ProductRepository(EntityManager entityManager){
-        super(entityManager, Product.class);
+    public ProductRepository(){
+        super(Product.class);
     }
 
     public Double getProductRating(int id) {
-        return entityManager.createQuery("" +
-                        "SELECT AVG(r.rating) " +
-                        "FROM Review r " +
-                        "JOIN r.product " +
-                        "WHERE r.product.id = ?1", Double.class)
-                .setParameter(1, id)
-                .getSingleResult();
+        return withEntityManager(entityManager ->
+                entityManager.createQuery("" +
+                                "SELECT AVG(r.rating) " +
+                                "FROM Review r " +
+                                "JOIN r.product " +
+                                "WHERE r.product.id = ?1", Double.class)
+                        .setParameter(1, id)
+                        .getSingleResult());
     }
 }

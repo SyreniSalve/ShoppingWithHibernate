@@ -26,7 +26,7 @@ public class Address extends SimpleEntity<UUID> {
 
     private String post;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private User user;
 
     @Override

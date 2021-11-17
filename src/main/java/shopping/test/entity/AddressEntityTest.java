@@ -1,4 +1,4 @@
-package shopping.test;
+package shopping.test.entity;
 
 import shopping.db.entity.Address;
 import shopping.db.repository.AddressRepository;
@@ -11,7 +11,12 @@ public class AddressEntityTest extends SimpleEntityTest<UUID, Address> {
         super(repository);
     }
 
-    public static Address newAddress(){
+    @Override
+    public void runTest() {
+    }
+
+    @Override
+    public Address newEntity() {
         Address address = new Address();
         address.setName("Home");
         address.setCountry("Lithuania");
@@ -21,10 +26,5 @@ public class AddressEntityTest extends SimpleEntityTest<UUID, Address> {
         address.setStreet2("D/K 123");
         address.setPost("54321");
         return address;
-    }
-
-    @Override
-    public void runTest() {
-        repository.save(newAddress());
     }
 }

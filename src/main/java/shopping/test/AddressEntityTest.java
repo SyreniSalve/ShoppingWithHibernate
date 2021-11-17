@@ -11,8 +11,7 @@ public class AddressEntityTest extends SimpleEntityTest<UUID, Address> {
         super(repository);
     }
 
-    @Override
-    public void runTest() {
+    public static Address newAddress(){
         Address address = new Address();
         address.setName("Home");
         address.setCountry("Lithuania");
@@ -21,8 +20,11 @@ public class AddressEntityTest extends SimpleEntityTest<UUID, Address> {
         address.setStreet1("Vėjų g. 1-2");
         address.setStreet2("D/K 123");
         address.setPost("54321");
-        repository.save(address);
+        return address;
+    }
 
-
+    @Override
+    public void runTest() {
+        repository.save(newAddress());
     }
 }

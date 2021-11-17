@@ -1,9 +1,6 @@
 package shopping.db.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -28,6 +25,9 @@ public class Address extends SimpleEntity<UUID> {
     private String street2;
 
     private String post;
+
+    @ManyToOne
+    private User user;
 
     @Override
     public UUID getId() {
@@ -92,6 +92,14 @@ public class Address extends SimpleEntity<UUID> {
 
     public void setPost(String post) {
         this.post = post;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

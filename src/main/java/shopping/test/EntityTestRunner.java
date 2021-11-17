@@ -11,7 +11,11 @@ public class EntityTestRunner {
     }
 
     private static void runTest(EntityTest<?> test) {
-        System.out.printf("%s %s %s%n ", EntityTest.PREFIX, test.getClass().getSimpleName(), EntityTest.SUFFIX);
-        test.run();
+        test.runBefore();
+        try {
+            test.run();
+        } finally {
+           test.runAfter();
+        }
     }
 }

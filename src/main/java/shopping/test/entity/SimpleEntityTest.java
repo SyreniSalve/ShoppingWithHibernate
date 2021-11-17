@@ -22,11 +22,9 @@ public abstract class SimpleEntityTest<ID, T extends DbEntity<ID>> implements En
         repository.findAll().forEach(System.out::println);
         runTest();
         printAllRecords();
-        System.out.println(PREFIX + PREFIX + SUFFIX);
     }
 
     private void printAllRecords(){
-        System.out.println(PREFIX + " All Records " + SUFFIX);
         repository.findAll().forEach(System.out::println);
     }
 

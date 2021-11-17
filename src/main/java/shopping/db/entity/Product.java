@@ -4,7 +4,9 @@ package shopping.db.entity;
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -20,6 +22,14 @@ public class Product extends SimpleEntity<Integer> {
 
     @Column(nullable = false)
     private double price;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "product_tags",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private List<Tag> tags = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "product")
     private List<Review> reviews = new ArrayList<>();
@@ -49,6 +59,19 @@ public class Product extends SimpleEntity<Integer> {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public void addTag(Tag tag){
+        tags.add(tag);
+        tag.addProduct(this);
     }
 
     public List<Review> getReviews() {
@@ -86,6 +109,7 @@ public class Product extends SimpleEntity<Integer> {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", tags=" + tags +
                 ", reviews=" + reviews +
                 ", updated=" + updated +
                 '}';

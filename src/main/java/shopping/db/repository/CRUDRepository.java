@@ -1,12 +1,10 @@
 package shopping.db.repository;
 
 import shopping.db.entity.DbEntity;
-
-import javax.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
 
-public interface CRUDRepository<T extends DbEntity> {
+public interface CRUDRepository<ID, T extends DbEntity<ID>> {
 
     /**
      *
@@ -19,9 +17,9 @@ public interface CRUDRepository<T extends DbEntity> {
      * Read
      */
 
-    T get(int id);
+    T get(ID id);
 
-    default Optional<T> find(int id){
+    default Optional<T> find(ID id){
        return Optional.ofNullable(get(id));
     }
 
@@ -33,7 +31,7 @@ public interface CRUDRepository<T extends DbEntity> {
      */
     void delete(T entity);
 
-    default void delete(int id){
+    default void delete(ID id){
         find(id).ifPresent(this::delete);
     }
 

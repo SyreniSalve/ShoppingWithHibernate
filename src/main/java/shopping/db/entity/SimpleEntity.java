@@ -1,4 +1,4 @@
-package shopping;
+package shopping.db.entity;
 
 import shopping.db.entity.DbEntity;
 

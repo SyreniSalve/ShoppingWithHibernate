@@ -1,11 +1,10 @@
 package shopping.db.entity;
 
-import shopping.SimpleEntity;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity

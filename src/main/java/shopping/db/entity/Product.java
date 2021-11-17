@@ -1,8 +1,6 @@
 package shopping.db.entity;
 
 
-import shopping.SimpleEntity;
-
 import javax.persistence.*;
 import java.time.Instant;
 import java.util.ArrayList;

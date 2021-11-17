@@ -1,7 +1,5 @@
 package shopping.db.entity;
 
-import shopping.SimpleEntity;
-
 import javax.persistence.*;
 
 @Entity

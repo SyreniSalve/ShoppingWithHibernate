@@ -7,7 +7,7 @@ import javax.persistence.EntityTransaction;
 import java.util.List;
 import java.util.Optional;
 
-public class ProductRepository extends SimpleCRUDRepository<Product> {
+public class ProductRepository extends SimpleCRUDRepository<Integer, Product> {
 
     public ProductRepository(EntityManager entityManager){
         super(entityManager, Product.class);

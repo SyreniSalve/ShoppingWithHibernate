@@ -1,10 +1,9 @@
 package shopping.test;
 
 import shopping.db.entity.Product;
-import shopping.db.repository.CRUDRepository;
 import shopping.db.repository.ProductRepository;
 
-public class ProductEntityTest extends SimpleEntityTest<Product>{
+public class ProductEntityTest extends SimpleEntityTest<Integer, Product>{
 
     private final ProductRepository repository;
 
@@ -14,7 +13,7 @@ public class ProductEntityTest extends SimpleEntityTest<Product>{
     }
 
     @Override
-    public void run() {
+    public void runTest() {
         Product newEntity = new Product();
         newEntity.setName("bla bla");
         newEntity.setPrice(9.99);
@@ -25,7 +24,6 @@ public class ProductEntityTest extends SimpleEntityTest<Product>{
         repository.save(entity);
         System.out.println("________________________________");
         repository.delete(28);
-        repository.findAll().forEach(System.out::println);
         System.out.println("________________________________");
         System.out.println(repository.get(8));
         System.out.println(repository.find(100));System.out.println("=====================================");

@@ -12,6 +12,18 @@ public class OrderEntityTest extends SimpleEntityTest<Integer, Order> {
     }
 
     @Override
+    public Order newEntity() {
+        Order order = new Order();
+        order.addItems(getNewProduct(), 5);
+        EntityTest<User> userEntityTest = EntityTestProvider.INSTANCE.getEntityTest(User.class);
+        User user = userEntityTest.newEntity();
+        userEntityTest.saveEntity(user);
+        order.setUser(user);
+        repository.save(order);
+        return order;
+    }
+
+    @Override
     public void runTest() {
         newEntity();
         repository.findAll().forEach(System.out::println);
@@ -41,16 +53,4 @@ public class OrderEntityTest extends SimpleEntityTest<Integer, Order> {
         return EntityTestProvider.INSTANCE.getEntityTest(Product.class).newEntity();
     }
 
-    @Override
-    public Order newEntity() {
-        Order order = new Order();
-        order.addItems(getNewProduct(), 5);
-        EntityTest<User> userEntityTest = EntityTestProvider.INSTANCE.getEntityTest(User.class);
-        User user = userEntityTest.newEntity();
-        userEntityTest.saveEntity(user);
-
-        order.setUser(user);
-        repository.save(order);
-        return order;
-    }
 }

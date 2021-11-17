@@ -28,6 +28,9 @@ public class User extends SimpleEntity<UUID> {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Address> addresses = new ArrayList<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<WishList> wishlists = new ArrayList<>();
+
     @OneToMany(mappedBy = "user")
     private List<Order> orders = new ArrayList<>();
 
@@ -93,6 +96,19 @@ public class User extends SimpleEntity<UUID> {
         addresses.add(address);
     }
 
+    public List<WishList> getWishlists() {
+        return wishlists;
+    }
+
+    public void setWishlists(List<WishList> wishlists) {
+        this.wishlists = wishlists;
+    }
+
+    public void addWishList(WishList wishList){
+        wishlists.add(wishList);
+        wishList.setUser(this);
+    }
+
     public List<Order> getOrders() {
         return orders;
     }
@@ -111,6 +127,7 @@ public class User extends SimpleEntity<UUID> {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", addresses=" + addresses +
+                ", wishlists=" + wishlists +
                 ", orders=" + orders +
                 '}';
     }

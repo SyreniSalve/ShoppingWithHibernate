@@ -23,6 +23,7 @@ public class HibernateEntityManagerBuilder {
         metadataSources.addAnnotatedClass(Product.class);
         metadataSources.addAnnotatedClass(OrderItem.class);
         metadataSources.addAnnotatedClass(Address.class);
+        metadataSources.addAnnotatedClass(WishList.class);
 
         Metadata metadata = metadataSources.buildMetadata();
         SessionFactory sessionFactory = metadata.buildSessionFactory();

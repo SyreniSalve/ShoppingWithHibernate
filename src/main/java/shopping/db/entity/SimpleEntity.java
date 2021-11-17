@@ -1,7 +1,5 @@
 package shopping.db.entity;
 
-import shopping.db.entity.DbEntity;
-
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import java.time.Instant;

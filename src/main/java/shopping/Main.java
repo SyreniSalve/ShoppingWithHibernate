@@ -11,9 +11,6 @@ import shopping.test.entity.OrderEntityTest;
 import shopping.test.entity.ProductEntityTest;
 import shopping.test.entity.UserEntityTest;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
 public class Main implements AutoCloseable{
 
     private final TagRepository tagRepository;

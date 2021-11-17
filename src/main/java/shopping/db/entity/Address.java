@@ -1,7 +1,6 @@
 package shopping.db.entity;
 
 import javax.persistence.*;
-import java.time.Instant;
 import java.util.UUID;
 
 @Entity

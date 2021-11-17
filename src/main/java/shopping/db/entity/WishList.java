@@ -69,16 +69,6 @@ public class WishList extends SimpleEntity<UUID>{
         products.add(product);
     }
 
-//    @Override
-//    public String toString() {
-//        return "WishList{" +
-//                "id=" + id +
-//                ", name='" + name + '\'' +
-//                ", isPublic=" + isPublic +
-//                '}';
-//    }
-
-
     @Override
     public String toString() {
         return "WishList{" +

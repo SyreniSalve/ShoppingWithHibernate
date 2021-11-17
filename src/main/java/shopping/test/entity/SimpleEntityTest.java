@@ -2,7 +2,6 @@ package shopping.test.entity;
 
 import shopping.db.entity.DbEntity;
 import shopping.db.repository.CRUDRepository;
-import shopping.test.entity.EntityTest;
 
 public abstract class SimpleEntityTest<ID, T extends DbEntity<ID>> implements EntityTest<T> {
 

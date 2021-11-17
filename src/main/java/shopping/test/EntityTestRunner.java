@@ -2,8 +2,6 @@ package shopping.test;
 
 import shopping.test.entity.EntityTest;
 
-import java.util.Arrays;
-
 public class EntityTestRunner {
 
     public static void runTests(){
